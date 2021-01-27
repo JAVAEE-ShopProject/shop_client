@@ -23,7 +23,7 @@ public class BaseDaoTest {
     public void update() {
         Map<String,Object> map = new HashMap<>();
         map.put("name","李四");
-        map.put("birthDay","1997-10-16");
+        map.put("birthday","1997-10-16");
         map.put("age","18");
         User user = WebUtils.parseMapToBean(new User(), map);
         System.out.println(user);

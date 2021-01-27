@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
 		 pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -34,155 +35,49 @@ body {
 	<div class="row" style="width: 1210px; margin: 0 auto;">
 		<div class="col-md-12">
 			<ol class="breadcrumb">
-				<li><a href="#">首页</a></li>
+				<li><a href="index.jsp">首页</a></li>
+				<li><a href="#">${requestScope.page.query.cname}</a></li>
 			</ol>
 		</div>
 
-		<div class="col-md-2" style="height:250px;">
-			<a href="product_info.htm"> <img src="products/1/cs10001.jpg"
-				width="170" height="170" style="display: inline-block;">
-			</a>
-			<p>
-				<a href="product_info.html" style='color: green'>冬瓜</a>
-			</p>
-			<p>
-				<font color="#FF0000">商城价：&yen;299.00</font>
-			</p>
-		</div>
+		<c:forEach items="${requestScope.page.items}" var="item">
+			<div class="col-md-2" style="height:250px;">
 
-		<div class="col-md-2">
-			<a href="product_info.htm"> <img src="products/1/cs10002.jpg"
-				width="170" height="170" style="display: inline-block;">
-			</a>
-			<p>
-				<a href="product_info.html" style='color: green'>圆白菜</a>
-			</p>
-			<p>
-				<font color="#FF0000">商城价：&yen;299.00</font>
-			</p>
-		</div>
+				<a href="product_info.htm"> <img src="${item.pimage}"
+												 width="170" height="170" style="display: inline-block;">
+				</a>
+				<p>
+					<a href="product_info.html" style='color: green'>${item.pname}</a>
+				</p>
+				<p>
+					<font color="#FF0000">商城价：&yen;${item.shop_price}</font>
+				</p>
+			</div>
 
-		<div class="col-md-2">
-			<a href="product_info.htm"> <img src="products/1/cs10003.jpg"
-				width="170" height="170" style="display: inline-block;">
-			</a>
-			<p>
-				<a href="product_info.html" style='color: green'>甜玉米</a>
-			</p>
-			<p>
-				<font color="#FF0000">商城价：&yen;299.00</font>
-			</p>
-		</div>
-
-		<div class="col-md-2">
-			<a href="product_info.htm"> <img src="products/1/cs10004.jpg"
-				width="170" height="170" style="display: inline-block;">
-			</a>
-			<p>
-				<a href="product_info.html" style='color: green'>胡萝卜</a>
-			</p>
-			<p>
-				<font color="#FF0000">商城价：&yen;299.00</font>
-			</p>
-		</div>
-		<div class="col-md-2">
-			<a href="product_info.htm"> <img src="products/1/cs10005.jpg"
-				width="170" height="170" style="display: inline-block;">
-			</a>
-			<p>
-				<a href="product_info.html" style='color: green'>芹菜</a>
-			</p>
-			<p>
-				<font color="#FF0000">商城价：&yen;299.00</font>
-			</p>
-		</div>
-
-		<div class="col-md-2">
-			<a href="product_info.htm"> <img src="products/1/cs10006.jpg"
-				width="170" height="170" style="display: inline-block;">
-			</a>
-			<p>
-				<a href="product_info.html" style='color: green'>韭菜</a>
-			</p>
-			<p>
-				<font color="#FF0000">商城价：&yen;299.00</font>
-			</p>
-		</div>
-
-		<div class="col-md-2">
-			<a href="product_info.htm"> <img src="products/1/cs10007.jpg"
-				width="170" height="170" style="display: inline-block;">
-			</a>
-			<p>
-				<a href="product_info.html" style='color: green'>香菜</a>
-			</p>
-			<p>
-				<font color="#FF0000">商城价：&yen;299.00</font>
-			</p>
-		</div>
-		<div class="col-md-2">
-			<a href="product_info.htm"> <img src="products/1/cs10008.jpg"
-				width="170" height="170" style="display: inline-block;">
-			</a>
-			<p>
-				<a href="product_info.html" style='color: green'>土豆</a>
-			</p>
-			<p>
-				<font color="#FF0000">商城价：&yen;299.00</font>
-			</p>
-		</div>
-		<div class="col-md-2">
-			<a href="product_info.htm"> <img src="products/1/cs10007.jpg"
-				width="170" height="170" style="display: inline-block;">
-			</a>
-			<p>
-				<a href="product_info.html" style='color: green'>香菜</a>
-			</p>
-			<p>
-				<font color="#FF0000">商城价：&yen;299.00</font>
-			</p>
-		</div>
-		<div class="col-md-2">
-			<a href="product_info.htm"> <img src="products/1/cs10008.jpg"
-				width="170" height="170" style="display: inline-block;">
-			</a>
-			<p>
-				<a href="product_info.html" style='color: green'>土豆</a>
-			</p>
-			<p>
-				<font color="#FF0000">商城价：&yen;299.00</font>
-			</p>
-		</div>
-		<div class="col-md-2">
-			<a href="product_info.htm"> <img src="products/1/cs10007.jpg"
-				width="170" height="170" style="display: inline-block;">
-			</a>
-			<p>
-				<a href="product_info.html" style='color: green'>香菜</a>
-			</p>
-			<p>
-				<font color="#FF0000">商城价：&yen;299.00</font>
-			</p>
-		</div>
-		<div class="col-md-2">
-			<a href="product_info.htm"> <img src="products/1/cs10008.jpg"
-				width="170" height="170" style="display: inline-block;">
-			</a>
-			<p>
-				<a href="product_info.html" style='color: green'>土豆</a>
-			</p>
-			<p>
-				<font color="#FF0000">商城价：&yen;299.00</font>
-			</p>
-		</div>
-
+		</c:forEach>
 	</div>
 
 	<!--分页 -->
 	<div style="width: 380px; margin: 0 auto; margin-top: 50px;">
 		<ul class="pagination" style="text-align: center; margin-top: 10px;">
-			<li class="disabled"><a href="#" aria-label="Previous"><span
-					aria-hidden="true">&laquo;</span></a></li>
+
+			<%--上一页的实现--%>
+            <c:if test="${requestScope.page.currentPageNumber == 1}">
+                <li class="disabled">
+                    <a href="JavaScript:void(0)" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            </c:if>
+            <c:if test="${requestScope.page.currentPageNumber != 1}">
+                <li class="active">
+                    <a href="${page.url}&cname=${page.query.cname}&pname=${page.query.pname}&currentPageNumber=${page.currentPageNumber-1}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            </c:if>
+            <%--每次展示5个条码--%>
+
 			<li class="active"><a href="#">1</a></li>
 			<li><a href="#">2</a></li>
 			<li><a href="#">3</a></li>
@@ -192,8 +87,22 @@ body {
 			<li><a href="#">7</a></li>
 			<li><a href="#">8</a></li>
 			<li><a href="#">9</a></li>
-			<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-			</a></li>
+
+           <%--下一页的实现--%>
+            <c:if test="${page.currentPageNumber == page.totalPages}">
+                <li class="disabled">
+                    <a href="JavaScript:void(0)" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </c:if>
+            <c:if test="${page.currentPageNumber != page.totalPages}">
+                <li class="active">
+                    <a href="${page.url}&cname=${page.query.cname}&pname=${page.query.pname}&currentPageNumber=${page.currentPageNumber+1}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </c:if>
 		</ul>
 	</div>
 	<!-- 分页结束 -->

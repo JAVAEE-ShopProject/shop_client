@@ -39,19 +39,19 @@ font {
 
 		<div class="row">
 			<div class="col-md-7">
-				<!--<img src="./image/login.jpg" width="500" height="330" alt="会员登录" title="会员登录">-->
+
 			</div>
 
 			<div class="col-md-5">
 				<div
 					style="width: 440px; border: 1px solid #E7E7E7; padding: 20px 0 20px 30px; border-radius: 5px; margin-top: 60px; background: #fff;">
 					<font>会员登录</font>USER LOGIN
-					<div>&nbsp;</div>
-					<form class="form-horizontal">
+					<div>&nbsp;<span style="color: red">${requestScope.msg}</span></div>
+					<form class="form-horizontal" action="user?method=login" method="post">
 						<div class="form-group">
 							<label for="username" class="col-sm-2 control-label">用户名</label>
 							<div class="col-sm-6">
-								<input type="text" class="form-control" id="username" autocomplete="off"
+								<input type="text" class="form-control" id="username" name="username" autocomplete="off"
 									placeholder="请输入用户名">
 							</div>
 						</div>
@@ -59,15 +59,15 @@ font {
 							<label for="inputPassword3" class="col-sm-2 control-label">密码</label>
 							<div class="col-sm-6">
 								<input type="password" class="form-control" id="inputPassword3"
-									placeholder="请输入密码">
+									placeholder="请输入密码" name="password">
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
 								<div class="checkbox">
-									<label> <input type="checkbox"> 自动登录
+									<label> <input type="checkbox" name="autoLogin"> 自动登录
 									</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label> <input
-										type="checkbox"> 记住用户名
+										type="checkbox" name="rememberUsername"> 记住用户名
 									</label>
 								</div>
 							</div>
@@ -76,7 +76,6 @@ font {
 							<div class="col-sm-offset-2 col-sm-10">
 								<ol class="list-inline">
 									<li><a href="#">忘记密码</a></li>
-									<li><a href="#">忘记账号</a></li>
 									<li><a href="pages/user/register.jsp">注册</a></li>
 								</ol>
 							</div>

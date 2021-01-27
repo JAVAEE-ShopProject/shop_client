@@ -18,19 +18,24 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">首页</a>
+                <a class="navbar-brand" href="index.jsp">首页</a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="product_list.html">手机数码<span class="sr-only">(current)</span></a></li>
+                <ul class="nav navbar-nav" id="bar">
+                 <%--   <li class="active"><a href="product_list.html">手机数码<span class="sr-only">(current)</span></a></li>
                     <li><a href="#">电脑办公</a></li>
                     <li><a href="#">电脑办公</a></li>
-                    <li><a href="#">电脑办公</a></li>
+                    <li><a href="#">电脑办公</a></li>--%>
+
                 </ul>
-                <form class="navbar-form navbar-right" role="search">
+
+                <form class="navbar-form navbar-right" role="search" action="product" method="get">
+                    <input type="hidden" name="method" value="page">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <%--回显搜索内容--%>
+                        <input type="text" class="form-control" name= "pname"
+                               placeholder="Search" value="${requestScope.page.query.pname}">
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
@@ -38,3 +43,21 @@
         </div>
     </nav>
 </div>
+<script type="text/javascript">
+    $(function () {
+
+        $.ajax({
+           url:"product",
+           type:"get",
+           data:"method=showCategory",
+           dataType:"json",
+           success:function (data) {
+               $.each(data,function () {
+                   var str = "<li><a href='product?method=page&cname="+this.cname+"'>"+this.cname+"</a></li>";
+                   $("#bar").append(str);
+               })
+           }
+        });
+    })
+
+</script>

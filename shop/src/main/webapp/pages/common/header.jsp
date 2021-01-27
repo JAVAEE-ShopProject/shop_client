@@ -3,7 +3,7 @@
 <!-- 登录 注册 购物车... -->
 <div class="container-fluid">
 	<div class="col-md-4">
-		<img src="static/img/logo.png" />
+		<img src="static/img/logo.png"  height="50px" width="100px"/>
 	</div>
 	<div class="col-md-5">
 		<img src="static/img/header.png" />

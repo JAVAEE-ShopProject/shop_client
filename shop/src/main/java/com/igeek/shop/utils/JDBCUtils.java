@@ -17,6 +17,9 @@ import java.util.Properties;
  */
 public class JDBCUtils {
     private static DruidDataSource ds = null;
+
+    private static ThreadLocal<Connection> tl = new ThreadLocal<>();
+
     static {
         InputStream is = JDBCUtils.class.getClassLoader().getResourceAsStream("jdbc.properties");
         Properties properties = new Properties();
@@ -27,22 +30,71 @@ public class JDBCUtils {
             e.printStackTrace();
         }
     }
-    public static Connection getConnection(){
-        try {
-            return ds.getConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    public static void close(Connection connection){
 
-        try {
-            if(connection != null&&!connection.isClosed()){
-                connection.close();
+
+    /*
+     从数据库连接池中获取连接对象
+     */
+    public static Connection getConnection() {
+        Connection conn = tl.get();
+        if (conn == null) {
+            try {
+                conn = ds.getConnection();
+                conn.setAutoCommit(false);
+                tl.set(conn);
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
+        return conn;
+    }
+
+    /**
+     * 关闭连接对象
+     */
+    public static void closeAndRoolback() {
+        Connection conn = tl.get();
+        if (conn != null) {
+            try {
+                conn.rollback();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+        //从该线程变量中移除 该连接
+        tl.remove();
+
+
+    }
+
+    /**
+     * 将事务提交
+     */
+    public static void closeAndCommit() {
+        Connection conn = tl.get();
+        if (conn != null) {
+            try {
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+//从该线程变量中移除 该连接
+        tl.remove();
     }
 }

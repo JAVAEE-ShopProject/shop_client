@@ -45,7 +45,7 @@ body {
 						</tr>
 						<tr class="active">
 							<td width="60" width="40%"><input type="hidden" name="id"
-								value="22"> <img src="./image/dadonggua.jpg" width="70"
+								value="22"> <img src="static/image/dadonggua.jpg" width="70"
 								height="60"></td>
 							<td width="30%"><a target="_blank"> 有机蔬菜 大冬瓜...</a></td>
 							<td width="20%">￥298.00</td>

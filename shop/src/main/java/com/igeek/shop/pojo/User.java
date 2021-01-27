@@ -5,21 +5,87 @@ import java.util.Date;
 /**
  * @author ：Allen
  * @date ：Created in 2021/1/24 9:51
- * @description：
+ * @description： 用户实体类
  * @version: 1.0
  */
 public class User {
+    private String uid;
+    private String username;
+    private String password;
     private String name;
-    private Date birthDay;
-    private Integer age;
+    private String email;
+    private String telephone;
+    private Date birthday;
+    private String sex;
+    private Integer state;
+    private String code;
+    private String address;
+
 
     public User() {
     }
 
-    public User(String name, Date birthDay, Integer age) {
+    public User(String uid, String username, String password,
+                String name, String email, String telephone, Date birthday, String sex, Integer state, String code, String address) {
+        this.uid = uid;
+        this.username = username;
+        this.password = password;
         this.name = name;
-        this.birthDay = birthDay;
-        this.age = age;
+        this.email = email;
+        this.telephone = telephone;
+        this.birthday = birthday;
+        this.sex = sex;
+        this.state = state;
+        this.code = code;
+        this.address = address;
+    }
+
+    /**
+     * 获取
+     * @return uid
+     */
+    public String getUid() {
+        return uid;
+    }
+
+    /**
+     * 设置
+     * @param uid
+     */
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    /**
+     * 获取
+     * @return username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * 设置
+     * @param username
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * 获取
+     * @return password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * 设置
+     * @param password
+     */
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     /**
@@ -40,37 +106,117 @@ public class User {
 
     /**
      * 获取
-     * @return birthDay
+     * @return email
      */
-    public Date getBirthDay() {
-        return birthDay;
+    public String getEmail() {
+        return email;
     }
 
     /**
      * 设置
-     * @param birthDay
+     * @param email
      */
-    public void setBirthDay(Date birthDay) {
-        this.birthDay = birthDay;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     /**
      * 获取
-     * @return age
+     * @return telephone
      */
-    public Integer getAge() {
-        return age;
+    public String getTelephone() {
+        return telephone;
     }
 
     /**
      * 设置
-     * @param age
+     * @param telephone
      */
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    /**
+     * 获取
+     * @return birthday
+     */
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    /**
+     * 设置
+     * @param birthday
+     */
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    /**
+     * 获取
+     * @return sex
+     */
+    public String getSex() {
+        return sex;
+    }
+
+    /**
+     * 设置
+     * @param sex
+     */
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    /**
+     * 获取
+     * @return state
+     */
+    public Integer getState() {
+        return state;
+    }
+
+    /**
+     * 设置
+     * @param state
+     */
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    /**
+     * 获取
+     * @return code
+     */
+    public String getCode() {
+        return code;
+    }
+
+    /**
+     * 设置
+     * @param code
+     */
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    /**
+     * 获取
+     * @return address
+     */
+    public String getAddress() {
+        return address;
+    }
+
+    /**
+     * 设置
+     * @param address
+     */
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String toString() {
-        return "User{name = " + name + ", birthDay = " + birthDay + ", age = " + age + "}";
+        return "User{uid = " + uid + ", username = " + username + ", password = " + password + ", name = " + name + ", email = " + email + ", telephone = " + telephone + ", birthday = " + birthday + ", sex = " + sex + ", state = " + state + ", code = " + code + ", address = " + address + "}";
     }
 }
