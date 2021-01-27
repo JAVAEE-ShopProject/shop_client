@@ -55,4 +55,11 @@ public interface ProductDao {
      * @return 查询的集合 没有返回null
      */
     List<Product> pageByPname(String pname,int begin,int count);
+
+    /**
+     * 查询商品 通过商品编号
+     * @param pid 商品编号
+     * @return 返回null代表 无记录
+     */
+    Product viewProductByPid(String pid);
 }

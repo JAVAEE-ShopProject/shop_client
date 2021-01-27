@@ -36,18 +36,24 @@ body {
 		<div class="col-md-12">
 			<ol class="breadcrumb">
 				<li><a href="index.jsp">首页</a></li>
-				<li><a href="#">${requestScope.page.query.cname}</a></li>
+				<c:if test="${!empty requestScope.page.query.cname}">
+					<li>${requestScope.page.query.cname}</li>
+				</c:if>
+				<c:if test="${!empty requestScope.page.query.pname}">
+					<li>${requestScope.page.query.pname}</li>
+				</c:if>
 			</ol>
 		</div>
 
+            <%--展现商品--%>
 		<c:forEach items="${requestScope.page.items}" var="item">
-			<div class="col-md-2" style="height:250px;">
+			<div class="col-md-3" style="height:250px;">
 
-				<a href="product_info.htm"> <img src="${item.pimage}"
+				<a href="product?method=showDetail&pid=${item.pid}&currentPageNumber=${page.currentPageNumber}&cname=${page.query.cname}&pname=${page.query.pname}"> <img src="${item.pimage}"
 												 width="170" height="170" style="display: inline-block;">
 				</a>
 				<p>
-					<a href="product_info.html" style='color: green'>${item.pname}</a>
+					<a href="product?method=showDetail&pid=${item.pid}&currentPageNumber=${page.currentPageNumber}&cname=${page.query.cname}&pname=${page.query.pname}" style='color: green'>${item.pname}</a>
 				</p>
 				<p>
 					<font color="#FF0000">商城价：&yen;${item.shop_price}</font>
@@ -57,55 +63,8 @@ body {
 		</c:forEach>
 	</div>
 
-	<!--分页 -->
-	<div style="width: 380px; margin: 0 auto; margin-top: 50px;">
-		<ul class="pagination" style="text-align: center; margin-top: 10px;">
-
-			<%--上一页的实现--%>
-            <c:if test="${requestScope.page.currentPageNumber == 1}">
-                <li class="disabled">
-                    <a href="JavaScript:void(0)" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-            </c:if>
-            <c:if test="${requestScope.page.currentPageNumber != 1}">
-                <li class="active">
-                    <a href="${page.url}&cname=${page.query.cname}&pname=${page.query.pname}&currentPageNumber=${page.currentPageNumber-1}" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-            </c:if>
-            <%--每次展示5个条码--%>
-
-			<li class="active"><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">4</a></li>
-			<li><a href="#">5</a></li>
-			<li><a href="#">6</a></li>
-			<li><a href="#">7</a></li>
-			<li><a href="#">8</a></li>
-			<li><a href="#">9</a></li>
-
-           <%--下一页的实现--%>
-            <c:if test="${page.currentPageNumber == page.totalPages}">
-                <li class="disabled">
-                    <a href="JavaScript:void(0)" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </c:if>
-            <c:if test="${page.currentPageNumber != page.totalPages}">
-                <li class="active">
-                    <a href="${page.url}&cname=${page.query.cname}&pname=${page.query.pname}&currentPageNumber=${page.currentPageNumber+1}" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </c:if>
-		</ul>
-	</div>
-	<!-- 分页结束 -->
+    <%--静态导入分页条--%>
+    <%@include file="/pages/common/pageBar.jsp" %>
 
 	<!--商品浏览记录-->
 	<div

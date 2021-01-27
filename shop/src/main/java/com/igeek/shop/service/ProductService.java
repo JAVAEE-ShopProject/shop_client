@@ -58,4 +58,11 @@ public interface ProductService {
      */
     int viewCategoryByCname(String cname);
 
+    /**
+     * 通过pid查询商品的信息
+     * @param pid 商品编号
+     * @return null代表无此记录
+     */
+    Product showDetailByPid(String pid);
+
 }

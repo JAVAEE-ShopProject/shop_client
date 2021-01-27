@@ -54,4 +54,10 @@ public class ProductDaoImpl extends BaseDao<Product> implements ProductDao {
         return queryList(sql,Product.class,pname,begin,count);
     }
 
+    @Override
+    public Product viewProductByPid(String pid) {
+        String sql  = "select * from product where pid = ?";
+        return queryOne(sql,Product.class,pid);
+    }
+
 }

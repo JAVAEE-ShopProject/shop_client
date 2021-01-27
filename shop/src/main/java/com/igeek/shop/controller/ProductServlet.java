@@ -48,6 +48,7 @@ public class ProductServlet extends BaseServlet {
 
     /**
      * 分页 查询  商品类别 +商品名的模糊查询
+     *
      * @param req
      * @param resp
      * @throws ServletException
@@ -65,24 +66,46 @@ public class ProductServlet extends BaseServlet {
         int cid = productService.viewCategoryByCname(cname);
         Page<Product> page = null;
         //调用productService对应的方法进行获取Page对象
-        if(cid == -1){
-            page = productService.pageByPname(pname,currentPageNumber,Page.DEFAULT_SIZE);
-        }else{
-            page = productService.pageByCid(cid,currentPageNumber,Page.DEFAULT_SIZE);
+        String url = null;
+        if (cid == -1) {
+            page = productService.pageByPname(pname, currentPageNumber, Page.DEFAULT_SIZE);
+            url = "pname=" + pname;
+        } else {
+            page = productService.pageByCid(cid, currentPageNumber, Page.DEFAULT_SIZE);
             //将商品种类放入查询条件中
-            page.getQuery().put("cname",cname);
+            page.getQuery().put("cname", cname);
+            url = "cname=" + cname;
         }
         //设置请求地址
-        page.setUrl("product?method=page");
+        page.setUrl("product?method=page&" + url);
 
         //将page对象存入请求域中
-        req.setAttribute("page",page);
+        req.setAttribute("page", page);
         //请求妆发到 /pages/product/product_list.jsp页面
-        req.getRequestDispatcher("/pages/product/product_list.jsp").forward(req,resp);
+        req.getRequestDispatcher("/pages/product/product_list.jsp").forward(req, resp);
 
     }
 
+    /**
+     * 展示商品的详情
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void showDetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        String pid = req.getParameter("pid");
+        if(!WebUtils.checkRange(pid)){
+            //通过地址栏瞎输
+            resp.sendRedirect(req.getHeader("referer"));
+            return ;
+        }
+        //将数据存放在请求域中
+        req.setAttribute("product",productService.showDetailByPid(pid));
+        //请求转发到 商品详情页
+        req.getRequestDispatcher("/pages/product/product_info.jsp").forward(req,resp);
+    }
 
 
 }

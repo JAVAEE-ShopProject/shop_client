@@ -12,7 +12,7 @@ import java.util.Map;
 public class Page<T> {
 
     //默认每页显示的记录个数
-    public static Integer DEFAULT_SIZE = 12;
+    public static Integer DEFAULT_SIZE = 4;
 
     //每页显示记录个数
     private Integer pageSize;

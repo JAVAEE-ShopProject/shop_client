@@ -15,8 +15,10 @@ public class Product {
     private Double shop_price;
     private String pimage;
     private Date pdate;
-    private Integer is_hot;
     private String pdesc;
+    private Integer stock;  //库存
+    private Integer sales;  //销量
+    private Integer is_hot;
     private Integer pflag;
     private String cid;
 
@@ -24,15 +26,17 @@ public class Product {
     public Product() {
     }
 
-    public Product(String pid, String pname, Double market_price, Double shop_price, String pimage, Date pdate, Integer is_hot, String pdesc, Integer pflag, String cid) {
+    public Product(String pid, String pname, Double market_price, Double shop_price, String pimage, Date pdate, String pdesc, Integer stock, Integer sales, Integer is_hot, Integer pflag, String cid) {
         this.pid = pid;
         this.pname = pname;
         this.market_price = market_price;
         this.shop_price = shop_price;
         this.pimage = pimage;
         this.pdate = pdate;
-        this.is_hot = is_hot;
         this.pdesc = pdesc;
+        this.stock = stock;
+        this.sales = sales;
+        this.is_hot = is_hot;
         this.pflag = pflag;
         this.cid = cid;
     }
@@ -197,7 +201,40 @@ public class Product {
         this.cid = cid;
     }
 
+
+    /**
+     * 获取
+     * @return stock
+     */
+    public Integer getStock() {
+        return stock;
+    }
+
+    /**
+     * 设置
+     * @param stock
+     */
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    /**
+     * 获取
+     * @return sales
+     */
+    public Integer getSales() {
+        return sales;
+    }
+
+    /**
+     * 设置
+     * @param sales
+     */
+    public void setSales(Integer sales) {
+        this.sales = sales;
+    }
+
     public String toString() {
-        return "Product{pid = " + pid + ", pname = " + pname + ", market_price = " + market_price + ", shop_price = " + shop_price + ", pimage = " + pimage + ", pdate = " + pdate + ", is_hot = " + is_hot + ", pdesc = " + pdesc + ", pflag = " + pflag + ", cid = " + cid + "}";
+        return "Product{pid = " + pid + ", pname = " + pname + ", market_price = " + market_price + ", shop_price = " + shop_price + ", pimage = " + pimage + ", pdate = " + pdate + ", pdesc = " + pdesc + ", stock = " + stock + ", sales = " + sales + ", is_hot = " + is_hot + ", pflag = " + pflag + ", cid = " + cid + "}";
     }
 }

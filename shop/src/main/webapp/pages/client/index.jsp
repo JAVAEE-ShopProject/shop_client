@@ -33,10 +33,10 @@
 
 					<c:forEach items="${requestScope.hot}" var="product">
 						<div class="col-md-2" style="text-align:center;height:200px;padding:10px 0px;">
-							<a href="product_info.htm">
+							<a href="product?method=showDetail&pid=${product.pid}">
 								<img src="${product.pimage}" width="130" height="130" style="display: inline-block;">
 							</a>
-							<p><a href="product_info.html" style='color:#666'>${product.pname}</a></p>
+							<p><a href="product?method=showDetail&pid=${product.pid}" style='color:#666'>${product.pname}</a></p>
 							<p><font color="#E4393C" style="font-size:16px">&yen;${product.shop_price}</font></p>
 						</div>
 
@@ -59,10 +59,10 @@
 				<div class="col-md-10" style="margin-left: 100px">
 					<c:forEach items="${requestScope.last}" var="product">
 						<div class="col-md-2" style="text-align:center;height:200px;padding:10px 0px;">
-							<a href="product_info.htm">
+							<a href="product?method=showDetail&pid=${product.pid}">
 								<img src="${product.pimage}" width="130" height="130" style="display: inline-block;">
 							</a>
-							<p><a href="product_info.html" style='color:#666'>${product.pname}</a></p>
+							<p><a href="product?method=showDetail&pid=${product.pid}" style='color:#666'>${product.pname}</a></p>
 							<p><font color="#E4393C" style="font-size:16px">&yen;${product.shop_price}</font></p>
 						</div>
 

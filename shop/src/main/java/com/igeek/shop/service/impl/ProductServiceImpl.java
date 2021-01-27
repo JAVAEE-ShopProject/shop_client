@@ -95,4 +95,9 @@ public class ProductServiceImpl implements ProductService {
         Category category = categoryDao.viewCategoryByCname(cname);
         return category == null ? -1:category.getCid();
     }
+
+    @Override
+    public Product showDetailByPid(String pid) {
+        return productDao.viewProductByPid(pid);
+    }
 }
