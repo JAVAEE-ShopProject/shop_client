@@ -4,6 +4,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.Converter;
 
+import javax.servlet.http.Cookie;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,57 +22,74 @@ import java.util.UUID;
 public class WebUtils {
     static {
 
-        class DateConvert implements Converter {
 
+        class DateConvert implements Converter {
+            @SuppressWarnings("rawtypes")
             @Override
-            public <T> T convert(Class<T> aClass, Object o) {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", new DateFormatSymbols(Locale.CHINA));
+            public Object convert(Class aClass, Object o) {
+                if(o == null)
+                    return null;
+
                 try {
-                    Date parse = sdf.parse((String) o);
+                    if(o instanceof String){
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        return  sdf.parse((String) o);
+                    }
+                    return o;
 //                    System.out.println(parse);
-                    return (T) parse;
                 } catch (ParseException e) {
 //                        e.printStackTrace();
-//                    throw new RuntimeException(e);
                 }
                 return null;
             }
+
         }
-        ConvertUtils.register(new DateConvert()
-                , Date.class);
+        ConvertUtils.register(new DateConvert(),Date .class);
     }
 
-    public static <T> T parseMapToBean(T obj, Map map) {
-        try {
-            BeanUtils.populate(obj, map);
-        } catch (Exception e) {
-            e.printStackTrace();
+        public static <T > T parseMapToBean(T obj, Map map) {
+            try {
+                BeanUtils.populate(obj, map);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return obj;
         }
 
-        return obj;
-    }
-
-    public static Integer parseStr2Int(String str, Integer defaultValue) {
-        int i;
-        try {
-            i = Integer.parseInt(str);
-        } catch (Exception e) {
-            i = defaultValue;
+        public static Integer parseStr2Int (String str, Integer defaultValue){
+            int i;
+            try {
+                i = Integer.parseInt(str);
+            } catch (Exception e) {
+                i = defaultValue;
+            }
+            return i;
         }
-        return i;
-    }
 
-    public static String randomStr() {
-        return UUID.randomUUID().toString().replaceAll("-", "");
-    }
+        public static String randomStr () {
+            return UUID.randomUUID().toString().replaceAll("-", "");
+        }
 
-    public static boolean checkRange(Object target) {
-        return (target != null && !"".equals(target));
-    }
+        public static boolean checkRange (Object target){
+            return (target != null && !"".equals(target));
+        }
 
-    public static String getStr(String str){
-        if(str!=null)
-            return str;
-        return "";
+        public static String getStr (String str){
+            if (str != null)
+                return str;
+            return "";
+        }
+
+        public static Cookie findSpecialCookie (Cookie[]cookies, String name){
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie != null && cookie.getName().equals(name)) {
+                        return cookie;
+                    }
+                }
+            }
+            return null;
+        }
+
     }
-}

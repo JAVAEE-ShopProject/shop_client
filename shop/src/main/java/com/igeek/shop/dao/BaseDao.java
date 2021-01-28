@@ -2,13 +2,12 @@ package com.igeek.shop.dao;
 
 import com.igeek.shop.utils.JDBCUtils;
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.BeanHandler;
-import org.apache.commons.dbutils.handlers.BeanListHandler;
-import org.apache.commons.dbutils.handlers.ScalarHandler;
+import org.apache.commons.dbutils.handlers.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author ：Allen
@@ -23,9 +22,8 @@ public abstract class BaseDao<T> {
 
     //修改
     public int update(String sql, Object... params) {
-        Connection connection = JDBCUtils.getConnection();
         try {
-            return runner.update(connection, sql, params);
+            return runner.update(JDBCUtils.getConnection(), sql, params);
         } catch (SQLException e) {
 //            e.printStackTrace();
             throw new RuntimeException(e);
@@ -34,9 +32,8 @@ public abstract class BaseDao<T> {
     }
 
     public T queryOne(String sql, Class<T> type, Object... params) {
-        Connection connection = JDBCUtils.getConnection();
         try {
-            return runner.query(connection, sql, new BeanHandler<>(type), params);
+            return runner.query(JDBCUtils.getConnection(), sql, new BeanHandler<>(type), params);
         } catch (SQLException e) {
 //            e.printStackTrace();
             throw new RuntimeException(e);
@@ -44,9 +41,9 @@ public abstract class BaseDao<T> {
     }
 
     public List<T> queryList(String sql, Class<T> type, Object... params) {
-        Connection connection = JDBCUtils.getConnection();
+
         try {
-            return runner.query(connection, sql, new BeanListHandler<>(type), params);
+            return runner.query(JDBCUtils.getConnection(), sql, new BeanListHandler<>(type), params);
         } catch (SQLException e) {
 //            e.printStackTrace();
             throw new RuntimeException(e);
@@ -54,12 +51,33 @@ public abstract class BaseDao<T> {
     }
 
     public Object querySingle(String sql,Object... params) {
-        Connection connection = JDBCUtils.getConnection();
+
         try {
-            return runner.query(connection, sql, new ScalarHandler(), params);
+            return runner.query(JDBCUtils.getConnection(), sql, new ScalarHandler(), params);
         } catch (SQLException e) {
 //            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
+
+
+    public List<Map<String,Object>> queryListMap(String sql,Object... params){
+        try {
+            return runner.query(JDBCUtils.getConnection(), sql, new MapListHandler(), params);
+        } catch (SQLException e) {
+//            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Map<String,Object> queryMap(String sql,Object... params){
+        try {
+            return runner.query(JDBCUtils.getConnection(), sql, new MapHandler(), params);
+        } catch (SQLException e) {
+//            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }

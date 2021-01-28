@@ -145,7 +145,7 @@
                     <label for="birthday" class="col-sm-2 control-label">出生日期</label>
                     <div class="col-sm-6">
                         <input type="date" class="form-control"
-                               id="birthday" name="birthday">
+                               id="birthday" name="birthday" value="${requestScope.user.birthday}">
                     </div>
                 </div>
 

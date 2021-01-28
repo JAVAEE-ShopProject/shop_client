@@ -9,6 +9,7 @@ import org.junit.Test;
 import javax.mail.MessagingException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -38,6 +39,9 @@ public class WebUtilsTest {
     @Test
     public void testJson(){
 
+        String str ="123-12-33";
+        String[] split = str.split("-");
+        System.out.println(Arrays.asList(split));
 
     }
 }

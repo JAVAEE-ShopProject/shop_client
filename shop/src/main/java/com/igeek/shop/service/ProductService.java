@@ -65,4 +65,5 @@ public interface ProductService {
      */
     Product showDetailByPid(String pid);
 
+
 }

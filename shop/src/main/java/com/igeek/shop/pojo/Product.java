@@ -1,5 +1,6 @@
 package com.igeek.shop.pojo;
 
+
 import java.util.Date;
 
 /**

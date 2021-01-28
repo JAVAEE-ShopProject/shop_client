@@ -10,9 +10,12 @@ import com.igeek.shop.utils.WebUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -79,6 +82,25 @@ public class ProductServlet extends BaseServlet {
         //设置请求地址
         page.setUrl("product?method=page&" + url);
 
+        //浏览足迹的 获取
+        //使用cookie技术添加浏览记录功能
+        LinkedList<String> list = null;
+        Cookie historyCookie = WebUtils.findSpecialCookie(req.getCookies(), "historyList");
+        if (historyCookie != null) {
+            //获取cookie 对应的值并将刚访问过的 商品的pid加入队列
+            list = new LinkedList<>(Arrays.asList(historyCookie.getValue().split("-")));
+        }
+        //调用 service方法 获取产品集合
+        List<Product> products = null ;
+        if(list != null){
+            products = new LinkedList<>();
+            for (String pid : list) {
+                Product product = productService.showDetailByPid(pid);
+                if (product != null)
+                    products.add(product);
+            }
+        }
+        req.setAttribute("products",products);
         //将page对象存入请求域中
         req.setAttribute("page", page);
         //请求妆发到 /pages/product/product_list.jsp页面
@@ -88,6 +110,7 @@ public class ProductServlet extends BaseServlet {
 
     /**
      * 展示商品的详情
+     *
      * @param req
      * @param resp
      * @throws ServletException
@@ -96,15 +119,37 @@ public class ProductServlet extends BaseServlet {
     protected void showDetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String pid = req.getParameter("pid");
-        if(!WebUtils.checkRange(pid)){
+        if (!WebUtils.checkRange(pid)) {
             //通过地址栏瞎输
             resp.sendRedirect(req.getHeader("referer"));
-            return ;
+            return;
         }
         //将数据存放在请求域中
-        req.setAttribute("product",productService.showDetailByPid(pid));
+        req.setAttribute("product", productService.showDetailByPid(pid));
+
+        //使用cookie技术添加浏览记录功能
+        LinkedList<String> list = null;
+        Cookie historyCookie = WebUtils.findSpecialCookie(req.getCookies(), "historyList");
+        if (historyCookie != null) {
+            //获取cookie 对应的值并将刚访问过的 商品的pid加入队列
+            list = new LinkedList<>(Arrays.asList(historyCookie.getValue().split("-")));
+            //添加到 链表中
+            list.addFirst(pid);
+        }
+        historyCookie = null;
+        String str = "";
+        if (list == null) {
+            str = pid;
+        } else {
+            for (int i = 0; i < 6 && i < list.size(); i++) {
+                str += list.get(i) + "-";
+            }
+            str = str.substring(0, str.length() - 1);
+        }
+        historyCookie = new Cookie("historyList", str);
+        resp.addCookie(historyCookie);
         //请求转发到 商品详情页
-        req.getRequestDispatcher("/pages/product/product_info.jsp").forward(req,resp);
+        req.getRequestDispatcher("/pages/product/product_info.jsp").forward(req, resp);
     }
 
 

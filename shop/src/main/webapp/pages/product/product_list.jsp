@@ -46,21 +46,37 @@ body {
 		</div>
 
             <%--展现商品--%>
-		<c:forEach items="${requestScope.page.items}" var="item">
-			<div class="col-md-3" style="height:250px;">
+		<c:if test="${ !empty requestScope.page.items}">
+			<c:forEach items="${requestScope.page.items}" var="item">
+				<div class="col-md-3" style="height:250px;">
 
-				<a href="product?method=showDetail&pid=${item.pid}&currentPageNumber=${page.currentPageNumber}&cname=${page.query.cname}&pname=${page.query.pname}"> <img src="${item.pimage}"
-												 width="170" height="170" style="display: inline-block;">
-				</a>
-				<p>
-					<a href="product?method=showDetail&pid=${item.pid}&currentPageNumber=${page.currentPageNumber}&cname=${page.query.cname}&pname=${page.query.pname}" style='color: green'>${item.pname}</a>
-				</p>
-				<p>
-					<font color="#FF0000">商城价：&yen;${item.shop_price}</font>
-				</p>
+					<a href="product?method=showDetail&pid=${item.pid}&currentPageNumber=${page.currentPageNumber}&cname=${page.query.cname}&pname=${page.query.pname}"> <img src="${item.pimage}"
+																																											  width="170" height="170" style="display: inline-block;">
+					</a>
+					<p>
+						<a href="product?method=showDetail&pid=${item.pid}&currentPageNumber=${page.currentPageNumber}&cname=${page.query.cname}&pname=${page.query.pname}" style='color: green'>${item.pname}</a>
+					</p>
+					<p>
+						<font color="#FF0000">商城价：&yen;${item.shop_price}</font>
+					</p>
+				</div>
+
+			</c:forEach>
+		</c:if>
+		<c:if test="${ empty requestScope.page.items}" >
+			<div class="col-md-12">
+					<img src="static/img/sorry.jpg">
+				<c:if test="${!empty page.query.pname}">
+					<span>很抱歉没有搜索到与【${ page.query.pname}】相关的商品</span>
+				</c:if>
+				<c:if test="${!empty page.query.cname}">
+					<span>很抱歉当前商品种类【${ page.query.cname}】还没有商品</span>
+				</c:if>
 			</div>
 
-		</c:forEach>
+
+		</c:if>
+
 	</div>
 
     <%--静态导入分页条--%>
@@ -68,23 +84,40 @@ body {
 
 	<!--商品浏览记录-->
 	<div
-		style="width: 1210px; margin: 0 auto; padding: 0 9px; border: 1px solid #ddd; border-top: 2px solid #999; height: 246px;">
+		style="width: 1210px; margin: 0 auto;
+		padding: 0 9px; border: 1px solid #ddd; border-top: 2px solid #999; height: 246px;">
 
 		<h4 style="width: 50%; float: left; font: 14px/30px 微软雅黑">浏览记录</h4>
-		<div style="width: 50%; float: right; text-align: right;">
-			<a href="">more</a>
-		</div>
+
 		<div style="clear: both;"></div>
 
 		<div style="overflow: hidden;">
+			<c:if test="${ !empty products}">
+				<c:forEach items="${products}" var="product">
+						<ul style="list-style: none;">
+							<li
+									style="width: 150px; height: 216; float: left; margin: 0 8px 0 0; padding: 0 18px 15px; text-align: center;">
+								<a href="product?method=showDetail&pid=${product.pid}"><img src="${product.pimage}" width="130px" height="130px" /></a>
+								<span ><a href="product?method=showDetail&pid=${product.pid}">${product.pname}</a></span>
+							</li>
+						</ul>
+				</c:forEach>
+			</c:if>
+			<c:if test="${ empty products}">
 
-			<ul style="list-style: none;">
-				<li
-					style="width: 150px; height: 216; float: left; margin: 0 8px 0 0; padding: 0 18px 15px; text-align: center;"><img
-					src="products/1/cs10001.jpg" width="130px" height="130px" /></li>
-			</ul>
+
+				<ul style="list-style: none;">
+					<li>
+						<span >无浏览足迹！！！</span>
+					</li>
+
+				</ul>
+
+			</c:if>
 
 		</div>
+
+
 	</div>
 
 
