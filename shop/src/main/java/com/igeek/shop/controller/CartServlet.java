@@ -38,11 +38,18 @@ public class CartServlet extends BaseServlet {
             Cart cart = cartService.queryCartByUid(user.getUid());
             Product product = productService.showDetailByPid(pid);
             //跳转到添加成功页面
-            cartService.addItemToCart(cart.getCartId(), pid, count);
+            CartItem cartItem1 = cartService.queryCartItemByCartIdAndPid(cart.getCartId(), product.getPid());
+            if(cartItem1 == null){
+                //购物车中不存在该商品
+                cartService.addItemToCart(cart.getCartId(), pid, count);
+            }else{
+                //购物车存在商品 更新数量
+                cartService.updateItemCountByCartIdAndPid(cart.getCartId(),product.getPid(),cartItem1.getCount()+count);
+            }
             //将购物车商品项存放到请求域中
             CartItem cartItem = new CartItem(cart, product, count, product.getShop_price() * count);
             req.setAttribute("cartItem", cartItem);
-            //请求转发到 添加成功页面
+            //请求转发到 添加成功页面  看是否会重复提交
             req.getRequestDispatcher("/pages/cart/cartSuccess.jsp").forward(req, resp);
         }else{
             resp.sendRedirect(req.getHeader("referer"));

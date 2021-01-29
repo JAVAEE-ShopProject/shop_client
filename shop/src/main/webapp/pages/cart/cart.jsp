@@ -26,6 +26,89 @@
 				padding: 0 10px;
 			}
 		</style>
+
+		<script type="text/javascript">
+
+			$(function () {
+
+				// 全选按钮添加点击事件
+				$("#checkAll").click(function () {
+					//将所有的购物车商品项的复选框 设置为 全选按钮一直的状态
+					var checked = this.checked;
+					$.each($(":input.cb"),function () {
+							this.checked = checked;
+					});
+					//计算金额  存放到  #totalPrice中
+					sum();
+				});
+				//给所有复选框添加点击事件
+				$(":checkbox.cb").click(function () {
+					//计算金额
+					sum();
+					//查看是否全选
+					$("#checkAll").prop("checked",checkAll());
+				});
+
+				//反选按钮添加点击事件
+				$("#reverse").click(function () {
+
+					$.each($(":input.cb"),function () {
+						this.checked = !this.checked;
+					});
+					//查看是否全选
+					$("#checkAll").prop("checked",checkAll());
+					sum();
+				});
+
+				//给所有的删除超链接添加点击事件
+				$("a.delete").click(function () {
+					// alert("delete");
+					var pname = $(this).parent().parent().find(".pname").text();
+					return confirm("你确认删除购物车中的【"+pname+"】商品吗?");
+				});
+
+				//清空按钮添加点击事件
+				$("#clear").click(function () {
+					return confirm("确认清空购物车吗?");
+				});
+
+				//修改count的文本框添加 onchange事件
+				$(":input.count").change(function () {
+					alert("change");
+				});
+
+
+
+				//检查所有购物车商品复选框 是否被选中  如果被选中则全选复选框将被选中
+				function checkAll() {
+					var allLen = $(":input.cb").length;
+					var checkedLen = $(":input.cb").filter(":checked").length;
+					alert(allLen);
+					alert(checkedLen);
+					//如果商品复选框的个数 与选中的商品复选框 个数一致 则返回true
+					return allLen == checkedLen;
+				}
+
+				function sum(){
+					var sum = 0;
+					$.each($(":input.cb"),function () {
+						if (this.checked == true) {
+							var  price =$(this).parent().parent().find(".subtotal").text();
+							sum +=parseFloat(price);
+						}
+					});
+					// alert(sum);
+					$("#totalPrice").text(sum);
+				}
+
+				//给提交按钮添加点击事件 提交订单
+				$("#submit").click(function () {
+					alert("提交");
+					//订单模块
+				});
+			});
+
+		</script>
 	</head>
 
 	<body>
@@ -56,21 +139,28 @@
 
 							<c:forEach items="${cart.items}" var="item">
 								<tr class="active">
-									<td><input type="checkbox" name="id"></td>
+									<td>
+										<input type="checkbox" class="cb">
+										<input type="hidden" name="pid" value="${item.product.pid}">
+									</td>
 									<td width="60" width="40%">
-										<img src="${item.product.pimage}" width="70" height="60">
+										<a href="product?method=showDetail&pid=${item.product.pid}">
+											<img src="${item.product.pimage}" width="70" height="60">
+										</a>
 									</td>
 									<td width="30%">
-										<a target="_blank"> ${item.product.pname}</a>
+										<a  href="product?method=showDetail&pid=${item.product.pid}" style="text-decoration: none">
+											商品名:<span class="pname">${item.product.pname}</span>>
+										</a>
 									</td>
 									<td width="20%">
-										￥${item.product.shop_price}
+										单价:￥${item.product.shop_price}
 									</td>
 									<td width="10%">
-										<input type="text" name="quantity" value="${item.count}" maxlength="4" size="10">
+										<input type="text" class="count" value="${item.count}" maxlength="4" size="10">
 									</td>
 									<td width="15%">
-										<span class="subtotal">￥${item.totalPrice}</span>
+										小计:￥<span class="subtotal">${item.totalPrice}</span>
 									</td>
 									<td>
 										<a href="cart?method=deleteItem&pid=${item.product.pid}" class="delete">删除</a>
@@ -84,13 +174,12 @@
 
 			<div style="margin-right:130px;">
 				<div style="text-align:right;">
-					 商品金额: <span id="totalPrice" style="color:#ff6600;">￥0.00元</span>
+					 选中商品金额:￥ <span id="totalPrice" style="color:#ff6600;">0.00</span>元
 				</div>
 				<div style="text-align:right;margin-top:10px;margin-bottom:10px;">
 					<input type="checkbox" id = "checkAll">全选<input type="checkbox" id = "reverse">反选
 					<a href="cart?method=clearCart" id="clear" class="clear">清空购物车</a>
-
-					<input type="button"  id ="submit" width="100" value="提交订单" name="submit"
+					<input type="button"  id ="submit" width="100" value="提交订单"
 							   border="0" style="background: url('static/images/register.gif') no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 						height:35px;width:100px;color:white;">
 				</div>
@@ -104,17 +193,7 @@
 				</div>
 				</c:if>
 		</div>
-			<script type="text/javascript">
-				/*
-				* 全选按钮添加点击事件
-				* 反选按钮添加点击事件
-				* 提交按钮添加点击事件
-				* 删除按钮添加点击事件
-				* 清空按钮添加点击事件
-				* 修改count的文本框添加 onchange事件
-				* */
 
-			</script>
 	<!-- 静态导入引入footer.jsp -->
 	<%@include file="/pages/common/footer.jsp" %>
 
