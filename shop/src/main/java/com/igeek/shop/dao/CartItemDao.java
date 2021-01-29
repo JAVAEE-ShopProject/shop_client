@@ -20,7 +20,7 @@ public interface CartItemDao {
      * @count 商品个数
      * @return 返回影响的行数
      */
-    int addItemToCart(String cartId, Integer pid,Integer count);
+    int addItemToCart(String cartId, String pid,Integer count);
 
     /**
      *更新购物车中指定商品的数量
@@ -29,7 +29,7 @@ public interface CartItemDao {
      * @param count  要更新的数量
      * @return  返回影响的行数
      */
-    int updateItemCountByCartIdAndPid(String cartId, Integer pid,Integer count);
+    int updateItemCountByCartIdAndPid(String cartId, String pid,Integer count);
 
     /**
      * 从购物车中 删除商品
@@ -37,7 +37,7 @@ public interface CartItemDao {
      * @param cartId 购物车编号
      * @return 返回影响的行数
      */
-    int deleteItemFromCart(String cartId, Integer pid);
+    int deleteItemFromCart(String cartId, String pid);
 
     /**
      * 从购物车中查询 购物车商品项目
@@ -46,6 +46,19 @@ public interface CartItemDao {
      */
       List<Map<String,Object>>   queryCartItemsMapListFromCart(String cartId);
 
-      Map<String,Object> queryCartItemByCartIdAndPid(String cartId, Integer pid);
+    /**
+     * 从购物车中查询 某一指定购物车商品项目
+     * @param cartId 购物车编号
+     * @param pid 商品编号
+     * @return
+     */
+      Map<String,Object> queryCartItemByCartIdAndPid(String cartId, String pid);
+
+    /**
+     * 清空所有购物车商品项
+     * @param cartId 购物车编号
+     * @return
+     */
+    int deleteAllCartItemByCartId(String cartId);
 
 }

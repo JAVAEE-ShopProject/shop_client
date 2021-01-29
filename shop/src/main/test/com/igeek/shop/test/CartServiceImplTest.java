@@ -38,7 +38,7 @@ public class CartServiceImplTest {
     @Test
     public void addItemToCart() {
 
-        cartService.addItemToCart("f4fa1a25d6d945309fe0d4215fa95b77",11,12);
+        cartService.addItemToCart("f4fa1a25d6d945309fe0d4215fa95b77","11",12);
         JDBCUtils.closeAndCommit();
 
     }
@@ -46,12 +46,15 @@ public class CartServiceImplTest {
     @Test
     public void updateItemCountByCartIdAndPid() {
 
-        cartService.updateItemCountByCartIdAndPid("f4fa1a25d6d945309fe0d4215fa95b77",101,2);
+        cartService.updateItemCountByCartIdAndPid("f4fa1a25d6d945309fe0d4215fa95b77","101",2);
         JDBCUtils.closeAndCommit();
     }
 
     @Test
     public void deleteItemFromCart() {
+
+        cartService.deleteItemFromCart("f4fa1a25d6d945309fe0d4215fa95b77","1");
+        JDBCUtils.closeAndCommit();
     }
 
     @Test
@@ -63,7 +66,16 @@ public class CartServiceImplTest {
 
     @Test
     public void queryCartItemFromCart() {
+        CartItem cartitem = cartService.queryCartItemByCartIdAndPid("f4fa1a25d6d945309fe0d4215fa95b77", "1");
 
+        System.out.println(cartitem);
+
+    }
+
+    @Test
+    public void clearCart() {
+        System.out.println(cartService.clearCart("f4fa1a25d6d945309fe0d4215fa95b77"));
+        JDBCUtils.closeAndCommit();
 
     }
 }

@@ -13,6 +13,15 @@
         <servlet-name>KaptchaServlet</servlet-name>
         <url-pattern>/code.jpg</url-pattern>
     </servlet-mapping>
+    <filter>
+        <filter-name>ManagerFilter</filter-name>
+        <filter-class>com.igeek.shop.filter.ManagerFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ManagerFilter</filter-name>
+        <url-pattern>/cart</url-pattern>
+        <url-pattern>/pages/cart/*</url-pattern>
+    </filter-mapping>
 
     <filter>
         <!--配置事务管理器-->

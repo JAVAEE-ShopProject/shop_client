@@ -5,11 +5,9 @@ import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.Converter;
 
 import javax.servlet.http.Cookie;
-import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -33,7 +31,7 @@ public class WebUtils {
                 try {
                     if(o instanceof String){
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                        return  sdf.parse((String) o);
+                        return sdf.parse( o.toString()) ;
                     }
                     return o;
 //                    System.out.println(parse);
@@ -44,7 +42,7 @@ public class WebUtils {
             }
 
         }
-        ConvertUtils.register(new DateConvert(),Date .class);
+        ConvertUtils.register(new DateConvert(),Date.class);
     }
 
         public static <T > T parseMapToBean(T obj, Map map) {

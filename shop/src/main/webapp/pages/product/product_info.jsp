@@ -17,7 +17,28 @@
 		width: 100%;
 		height: 300px;
 	}
+
 </style>
+	<script type="text/javascript">
+
+		$(function () {
+			//页面加载完成之后
+			$("#addBtn").click(function () {
+
+				var count = $("#count").val();
+				if(count <=0){
+					alert("加入购车的数量不能小于等于0");
+					$("#count").val("1");
+					return;
+				}
+				window.location.href = "cart?method=addToCart&pid=${product.pid}&count="+count;
+			})
+
+
+		})
+
+
+	</script>
 </head>
 
 <body>
@@ -83,15 +104,14 @@
 						<div
 							style="border-bottom: 1px solid #faeac7; margin-top: 20px;
 							 padding-left: 10px;">
-							购买数量: <input id="quantity" name="quantity" value="1"
+							购买数量: <input id="count" value="1"
 								maxlength="4" size="10" type="text">
 						</div>
 
 						<div style="margin: 20px 0 10px 0;; text-align: center;">
-							<a href="cart.htm"> <input
-								style="background: url('static/images/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0); height: 36px; width: 127px;"
-								value="加入购物车" type="button">
-							</a> &nbsp;<a href="#">收藏商品</a>
+						<input style="background: url('static/images/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0); height: 36px; width: 127px;"
+								value="加入购物车" id ="addBtn" type="button">
+							 &nbsp;
 						</div>
 					</div>
 				</div>
@@ -103,7 +123,7 @@
 					style="background-color: #d3d3d3; width: 930px; padding: 10px 10px; margin: 10px 0 10px 0;">
 					<strong>商品介绍:${requestScope.product.pdesc}</strong>
 				</div>
-
+<%--
 				<div style="background-color: #d3d3d3; width: 900px;">
 					<table class="table table-bordered">
 						<tbody>
@@ -128,7 +148,7 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
+				</div>--%>
 			</div>
 		</div>
 

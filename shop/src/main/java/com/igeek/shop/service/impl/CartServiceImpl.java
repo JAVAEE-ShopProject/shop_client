@@ -26,31 +26,32 @@ public class CartServiceImpl implements CartService {
     private CartDao cartDao = new CartDaoImpl();
     @Override
     public int createCart(String cartId, String uid) {
-        //查询该用户是否有购物车 没有就创建
-        Cart cart = queryCartByUid(uid);
-        if(cart == null){
-            return cartDao.createCart(cartId,uid);
-        }
-        return 0;
+        return cartDao.createCart(cartId,uid);
     }
 
     @Override
     public Cart queryCartByUid(String uid) {
-        return cartDao.queryCartByUid(uid);
+        Cart cart = cartDao.queryCartByUid(uid);
+        if(cart == null){
+            cart = new Cart(WebUtils.randomStr(),null,null);
+            createCart(cart.getCartId(),uid);
+        }
+
+        return cart;
     }
 
     @Override
-    public int addItemToCart(String cartId, Integer pid, Integer count) {
+    public int addItemToCart(String cartId, String pid, Integer count) {
         return cartItemDao.addItemToCart(cartId,pid,count);
     }
 
     @Override
-    public int updateItemCountByCartIdAndPid(String cartId, Integer pid, Integer count) {
+    public int updateItemCountByCartIdAndPid(String cartId, String pid, Integer count) {
         return cartItemDao.updateItemCountByCartIdAndPid(cartId, pid, count);
     }
 
     @Override
-    public int deleteItemFromCart(String cartId, Integer pid) {
+    public int deleteItemFromCart(String cartId, String pid) {
         return cartItemDao.deleteItemFromCart(cartId, pid);
     }
 
@@ -71,7 +72,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public CartItem queryCartItemByCartIdAndPid(String cartId,Integer pid) {
+    public CartItem queryCartItemByCartIdAndPid(String cartId,String pid) {
         Map<String, Object> map = cartItemDao.queryCartItemByCartIdAndPid(cartId, pid);
         if(map == null)
             return null;
@@ -80,5 +81,10 @@ public class CartServiceImpl implements CartService {
         cartItem.setProduct(product);
         cartItem.setTotalPrice(cartItem.getCount()*product.getShop_price());
         return cartItem;
+    }
+
+    @Override
+    public int clearCart(String cartId) {
+        return cartItemDao.deleteAllCartItemByCartId(cartId);
     }
 }

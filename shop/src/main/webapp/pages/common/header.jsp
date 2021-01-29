@@ -12,7 +12,7 @@
 		<ol class="list-inline">
 			<li><a href="pages/user/login.jsp">登录</a></li>
 			<li><a href="pages/user/register.jsp">注册</a></li>
-			<li><a href="cart.jsp">购物车</a></li>
+			<li><a href="cart?method=showCart">购物车</a></li>
 			<li><a href="order_list.jsp">我的订单</a></li>
 		</ol>
 	</div>

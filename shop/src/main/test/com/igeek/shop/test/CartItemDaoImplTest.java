@@ -26,7 +26,7 @@ public class CartItemDaoImplTest {
     @Test
     public void addItemToCart() {
 
-        System.out.println(cartItemDao.addItemToCart("1b4ca460e3bd4a3fa34b5d2bad90765a", 3, 2));
+        System.out.println(cartItemDao.addItemToCart("1b4ca460e3bd4a3fa34b5d2bad90765a", "3", 2));
         JDBCUtils.closeAndCommit();
 
     }
@@ -34,7 +34,7 @@ public class CartItemDaoImplTest {
     @Test
     public void updateItemCount() {
 
-        System.out.println(cartItemDao.updateItemCountByCartIdAndPid("1b4ca460e3bd4a3fa34b5d2bad90765a", 3, 6));
+        System.out.println(cartItemDao.updateItemCountByCartIdAndPid("1b4ca460e3bd4a3fa34b5d2bad90765a", "3", 6));
         JDBCUtils.closeAndCommit();
 
     }
@@ -42,7 +42,7 @@ public class CartItemDaoImplTest {
 
     @Test
     public void deleteItemFromCart() {
-        cartItemDao.deleteItemFromCart("1b4ca460e3bd4a3fa34b5d2bad90765a",3);
+        cartItemDao.deleteItemFromCart("1b4ca460e3bd4a3fa34b5d2bad90765a","3");
         JDBCUtils.closeAndCommit();
     }
 
@@ -53,7 +53,7 @@ public class CartItemDaoImplTest {
     }
     @Test
     public void queryCartItemByCartIdAndPid(){
-        Map<String, Object> cartItem = cartItemDao.queryCartItemByCartIdAndPid("f4fa1a25d6d945309fe0d4215fa95b77",16);
+        Map<String, Object> cartItem = cartItemDao.queryCartItemByCartIdAndPid("f4fa1a25d6d945309fe0d4215fa95b77","16");
         System.out.println(cartItem);
 
     }
