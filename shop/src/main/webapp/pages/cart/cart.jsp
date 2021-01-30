@@ -126,7 +126,7 @@
 							str = str+"&pid="+pid;
 						}
 					});
-					alert(str);
+					// alert(str);
 					//订单模块
 					if(str == ""){
 						alert("请至少选中一件商品");

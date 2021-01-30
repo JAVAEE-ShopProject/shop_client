@@ -78,20 +78,6 @@ public class OrderDaoImplTest {
         System.out.println(orders);
     }
 
-    @Test
-    public void queryOrderByUidAndOid(){
-        User u = new User();
-        u.setUid("5e85111b049c4e3c84283beb83c2a4da");
-        Order order = orderDao.queryOrderByUidAndOid(u.getUid(),"e1604a41dcd74f898d2eb2c7f176a1a8");
-        order.setUser(u);
 
-        order.setAddress("南京");
-        order.setName("李思思");
-        order.setTelephone("18888888");
-        System.out.println(orderDao.updateOrder(order));
-        JDBCUtils.closeAndCommit();
-
-        System.out.println(order);
-    }
 
 }

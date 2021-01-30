@@ -56,13 +56,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order queryOrderByUidAndOid(String uid, String oid) {
-        return orderDao.queryOrderByUidAndOid(uid, oid);
+    public Order queryOrderByOid(String oid) {
+        return orderDao.queryOrderByOid( oid);
     }
 
 
     @Override
     public int updateOrder(Order o) {
-        return updateOrder(o);
+        return orderDao.updateOrder(o);
     }
 }

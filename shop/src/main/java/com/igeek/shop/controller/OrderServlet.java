@@ -67,7 +67,7 @@ public class OrderServlet extends BaseServlet {
             o.setTotal(total);
             //设置订单项
             o.setOrderItems(orderItems);
-            int i = 10/0;
+//            int i = 10 / 0;
             //创建订单
             orderService.createOrder(o);
             //将订单信息放入会话域中 不可放入请求域中  存在重复提交的问题
@@ -83,6 +83,7 @@ public class OrderServlet extends BaseServlet {
 
     /**
      * 显示我的订单列表
+     *
      * @param req
      * @param resp
      * @throws ServletException
@@ -94,6 +95,7 @@ public class OrderServlet extends BaseServlet {
 
     /**
      * 显示订单详情
+     *
      * @param req
      * @param resp
      * @throws ServletException
@@ -101,8 +103,31 @@ public class OrderServlet extends BaseServlet {
      */
     protected void showOrderInfo(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+    }
+
+    protected void confirmOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        Order order = (Order) req.getSession().getAttribute("order");
+        String name = WebUtils.getStr(req.getParameter("name"));
+        String address = WebUtils.getStr(req.getParameter("address"));
+        String telephone = WebUtils.getStr(req.getParameter("telephone"));
+        order.setName(name);
+        order.setAddress(address);
+        order.setTelephone(telephone);
+        //更新订单信息
+        orderService.updateOrder(order);
+        String pay = WebUtils.getStr(req.getParameter("pay"));
+        if (pay.equals("alipay")) {
+            //支付宝跳转到支付宝支付页面
+            req.getRequestDispatcher("/pages/alipay/alipay.trade.page.pay.jsp").forward(req, resp);
+        } else if (pay.equals("wechatPay")) {
+            //微信支付跳转到微信支付页面
+
+
+        }
 
 
     }
+
 
 }

@@ -42,14 +42,14 @@ public class OrderDaoImpl extends BaseDao<Order> implements OrderDao {
     }
 
     @Override
-    public Order queryOrderByUidAndOid(String uid, String oid) {
-        String sql  = "select * from orders where uid = ? and oid = ?";
-        return queryOne(sql,Order.class,uid,oid);
+    public Order queryOrderByOid( String oid) {
+        String sql  = "select * from orders where oid = ?";
+        return queryOne(sql,Order.class,oid);
     }
 
     @Override
     public int updateOrder(Order o) {
-        String sql = "update orders set ordertime = ?,total = ?,state = ?,address = ?,name = ?,telephone = ? ,uid = ? where oid = ?";
-        return update(sql,o.getOrdertime(),o.getTotal(),o.getState(),o.getAddress(),o.getName(),o.getTelephone(),o.getUser().getUid(),o.getOid());
+        String sql = "update orders set ordertime = ?,total = ?,state = ?,address = ?,name = ?,telephone = ?  where oid = ?";
+        return update(sql,o.getOrdertime(),o.getTotal(),o.getState(),o.getAddress(),o.getName(),o.getTelephone(),o.getOid());
     }
 }

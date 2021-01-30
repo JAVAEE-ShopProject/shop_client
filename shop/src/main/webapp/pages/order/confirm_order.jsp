@@ -76,8 +76,8 @@ body {
 
 		<div>
 			<hr />
-			<form class="form-horizontal"
-				style="margin-top: 5px; margin-left: 150px;" action="" method="post">
+			<form class="form-horizontal" id="confirmForm"
+				style="margin-top: 5px; margin-left: 150px;" action="order?method=confirmOrder" method="post">
 				<div class="form-group">
 					<label for="address" class="col-sm-1 control-label">地址</label>
 					<div class="col-sm-5">
@@ -132,7 +132,8 @@ body {
 
 	$("#pay").click(function () {
 
-
+		$("#confirmForm").submit();
+		return false;
 	})
 
 </script>

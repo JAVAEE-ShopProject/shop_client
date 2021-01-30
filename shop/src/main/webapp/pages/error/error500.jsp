@@ -9,8 +9,9 @@
 <html>
 <head>
     <title>Title</title>
+    <%@include file="/pages/common/common_resourse.jsp"%>
 </head>
 <body>
-
+    出现了bug程序员正在处理,<a href="index.jsp">回到首页</a>
 </body>
 </html>

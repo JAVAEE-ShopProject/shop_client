@@ -35,14 +35,6 @@ public interface OrderService {
      */
     List<Order> queryOrderByUid(String uid);
 
-    /**
-     * 通过用户编号 和订单编号 查询 指定订单
-     * @param uid 用户编号
-     * @param oid 订单编号
-     * @return Order对象 或null(没查到)
-     */
-    Order queryOrderByUidAndOid(String uid,String oid);
-
 
     /**
      * 更新订单的联系人信息
@@ -51,4 +43,10 @@ public interface OrderService {
      */
     int updateOrder(Order o);
 
+    /**
+     * 通过订单编号查询订单
+     * @param oid 订单编号
+     * @return
+     */
+    Order queryOrderByOid(String oid);
 }

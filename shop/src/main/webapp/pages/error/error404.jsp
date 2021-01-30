@@ -9,8 +9,10 @@
 <html>
 <head>
     <title>Title</title>
+    <%@include file="/pages/common/common_resourse.jsp"%>
 </head>
 <body>
 
+        你访问的资源不存在！！！<a href="index.jsp">回到首页</a>
 </body>
 </html>

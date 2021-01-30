@@ -43,12 +43,11 @@ public interface OrderDao {
     List<Order> queryOrderByUid(String uid);
 
     /**
-     * 通过用户编号 和订单编号 查询 指定订单
-     * @param uid 用户编号
+     * 订单编号 查询 指定订单
      * @param oid 订单编号
      * @return Order对象 或null(没查到)
      */
-    Order queryOrderByUidAndOid(String uid,String oid);
+    Order queryOrderByOid(String oid);
 
 
     /**
