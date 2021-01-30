@@ -137,8 +137,10 @@ public class UserServlet extends BaseServlet {
          * @throws IOException
          */
     protected void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-
+        //从会话中移除用户信息
+        req.getSession().removeAttribute("user");
+        //请求转发到首页
+        resp.sendRedirect(req.getContextPath()+"/index.jsp");
     }
 
     /**

@@ -60,5 +60,4 @@ public interface CartItemDao {
      * @return
      */
     int deleteAllCartItemByCartId(String cartId);
-
 }

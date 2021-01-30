@@ -29,7 +29,9 @@ public  class BaseServlet extends HttpServlet {
             Method method = this.getClass().getDeclaredMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
             method.invoke(this,req,resp);
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            //将异常抛给事务过滤器处理
+            throw new RuntimeException(e);
         }
 
 

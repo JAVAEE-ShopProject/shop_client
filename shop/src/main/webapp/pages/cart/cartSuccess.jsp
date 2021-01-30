@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>蚂蚁商城购物车</title>
+		<title>添加成功</title>
 		<%--静态导入公共资源--%>
 		<%@include file="/pages/common/common_resourse.jsp" %>
 		<style>

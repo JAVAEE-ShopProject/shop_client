@@ -74,7 +74,21 @@
 
 				//修改count的文本框添加 onchange事件
 				$(":input.count").change(function () {
-					alert("change");
+					// alert("change");
+					//获取商品编号
+
+					//获取要更新的个数
+					var value = this.value;
+					if (value > 0) {
+						var pid = $(this).parent().parent().find(".pid").val();
+						//发送请求
+						window.location.href = "cart?method=updateCount&count=" + value+"&pid="+pid;
+						return;
+					}
+					alert("输入的数据不合法");
+					//将其恢复初始值
+					this.value = this.defaultValue;
+
 				});
 
 
@@ -83,8 +97,8 @@
 				function checkAll() {
 					var allLen = $(":input.cb").length;
 					var checkedLen = $(":input.cb").filter(":checked").length;
-					alert(allLen);
-					alert(checkedLen);
+					// alert(allLen);
+					// alert(checkedLen);
 					//如果商品复选框的个数 与选中的商品复选框 个数一致 则返回true
 					return allLen == checkedLen;
 				}
@@ -103,8 +117,23 @@
 
 				//给提交按钮添加点击事件 提交订单
 				$("#submit").click(function () {
-					alert("提交");
+					//遍历所有的商品选项按钮 如果被选中 就拼接商品pid值
+					var str = "";
+
+					$.each($(":input.cb"),function () {
+						if (this.checked == true) {
+							var  pid =$(this).parent().parent().find(".pid").val();
+							str = str+"&pid="+pid;
+						}
+					});
+					alert(str);
 					//订单模块
+					if(str == ""){
+						alert("请至少选中一件商品");
+						return ;
+					}
+					window.location.href = "order?method=create"+str;
+
 				});
 			});
 
@@ -141,7 +170,7 @@
 								<tr class="active">
 									<td>
 										<input type="checkbox" class="cb">
-										<input type="hidden" name="pid" value="${item.product.pid}">
+										<input type="hidden" class="pid" value="${item.product.pid}">
 									</td>
 									<td width="60" width="40%">
 										<a href="product?method=showDetail&pid=${item.product.pid}">

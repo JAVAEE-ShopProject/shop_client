@@ -5,7 +5,7 @@
 
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>会员登录</title>
+<title>订单详情页</title>
 	<%--静态导入公共资源--%>
 	<%@include file="/pages/common/common_resourse.jsp" %>
 
@@ -124,6 +124,7 @@ body {
 				</table>
 			</div>
 		</div>
+
 		<div style="text-align: center;">
 			<ul class="pagination">
 				<li class="disabled"><a href="#" aria-label="Previous"><span
